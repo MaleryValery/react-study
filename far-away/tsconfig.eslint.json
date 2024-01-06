@@ -7,6 +7,8 @@
     "tests",
     // add all files in which you see
     // the "parserOptions.project" error
-    ".eslintrc.cjs"
+    ".eslintrc.cjs",
+    "farebase.ts",
+    "env.d.ts"
   ]
 }

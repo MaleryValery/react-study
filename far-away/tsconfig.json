@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -26,6 +26,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", ".eslintrc.cjs", "src", "tsconfig.eslint.json"],
+  "include": ["vite.config.ts", ".eslintrc.cjs", "src", "tsconfig.eslint.json", ],
+  "typeRoots": [
+    "./node_modules/@types",
+    "./types"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
