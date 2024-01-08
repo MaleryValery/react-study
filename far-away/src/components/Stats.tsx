@@ -1,6 +1,8 @@
 function Stats() {
   return (
-    <footer>👜 You have X items on your list, and you have packed X %</footer>
+    <footer className="stats">
+      👜 You have X items on your list, and you have packed X %
+    </footer>
   );
 }
 

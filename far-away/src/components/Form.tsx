@@ -1,8 +1,51 @@
-function Form() {
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { INITIAL_STATE, MAX_QUANTITY } from '../constants/const';
+import { ItemProps } from './Item';
+
+type FormProps = {
+  onAddItems: (item: ItemProps) => void;
+};
+
+function Form({ onAddItems }: FormProps) {
+  const [description, setDescription] = useState(INITIAL_STATE.description);
+  const [quantity, setQuantyity] = useState(INITIAL_STATE.quantity);
+
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    setDescription(event.target.value);
+  }
+  function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+    setQuantyity(Number(event.target.value));
+  }
+
+  function handleSubmit(event: SyntheticEvent) {
+    event.preventDefault();
+    if (!description) return;
+    const newItem = { description, quantity, packed: false, id: Date.now() };
+    onAddItems(newItem);
+    setDescription(INITIAL_STATE.description);
+    setQuantyity(INITIAL_STATE.quantity);
+  }
+
   return (
-    <div className="add-form">
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3>What do you need for your trip?👀</h3>
-    </div>
+      <select onChange={handleSelectChange} value={quantity}>
+        {Array.from({ length: MAX_QUANTITY }, (_, i) => i + 1).map((el) => (
+          <option value={el} key={el}>
+            {el}
+          </option>
+        ))}
+      </select>
+      <input
+        type="text"
+        placeholder="add item"
+        value={description}
+        onChange={handleInputChange}
+      />
+      <button type="submit" disabled={!description}>
+        Add
+      </button>
+    </form>
   );
 }
 
