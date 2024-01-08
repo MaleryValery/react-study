@@ -7,14 +7,14 @@ type PackingListProps = {
   initialItems: NewItemType[];
   onDeleteItem: (id: number) => void;
   onToggleItem: (id: number) => void;
-  onClearList: () => void;
+  onShowModal: () => void;
 };
 
 function PackingList({
   initialItems,
   onDeleteItem,
   onToggleItem,
-  onClearList,
+  onShowModal,
 }: PackingListProps) {
   const [sort, setSort] = useState('input');
 
@@ -58,7 +58,7 @@ function PackingList({
             </option>
           ))}
         </select>
-        <button type="button" onClick={onClearList}>
+        <button type="button" onClick={onShowModal}>
           Clear list
         </button>
       </div>

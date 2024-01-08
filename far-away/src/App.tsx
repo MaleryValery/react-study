@@ -4,9 +4,11 @@ import Logo from './components/Logo';
 import PackingList from './components/PackingList';
 import Stats from './components/Stats';
 import NewItemType from './types/newItem.types';
+import Modal from './components/Modal';
 
 function App() {
   const [items, setItems] = useState<NewItemType[]>([]);
+  const [isModal, setIsModal] = useState(false);
 
   function handleAddItems(item: NewItemType) {
     setItems((currentItems) => [...currentItems, item]);
@@ -24,8 +26,13 @@ function App() {
     );
   }
 
+  function handleShowModal() {
+    setIsModal(true);
+  }
+
   function handleClearList() {
     setItems([]);
+    setIsModal(false);
   }
 
   return (
@@ -36,9 +43,14 @@ function App() {
         initialItems={items}
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToddleItem}
-        onClearList={handleClearList}
+        onShowModal={handleShowModal}
       />
       <Stats items={items} />
+      <Modal
+        isHiden={isModal}
+        onConfirm={handleClearList}
+        onCancel={() => setIsModal(false)}
+      />
     </div>
   );
 }

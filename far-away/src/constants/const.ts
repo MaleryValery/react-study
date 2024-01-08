@@ -18,3 +18,5 @@ export const ACTIONS_OPTIONS = [
   { id: 2, name: 'Sort by description', type: SORTING_SETINGS.descriptions },
   { id: 3, name: 'Sort by packed items', type: SORTING_SETINGS.packed },
 ];
+
+export const MODAL_TEXT = 'Are you really want to delete all of the items?';
