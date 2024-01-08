@@ -1,9 +1,9 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { INITIAL_STATE, MAX_QUANTITY } from '../constants/const';
-import { ItemProps } from './Item';
+import NewItemType from '../types/newItem.types';
 
 type FormProps = {
-  onAddItems: (item: ItemProps) => void;
+  onAddItems: (item: NewItemType) => void;
 };
 
 function Form({ onAddItems }: FormProps) {

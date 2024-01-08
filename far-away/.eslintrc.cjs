@@ -27,6 +27,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   rules: {
+    'react/jsx-no-bind': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'no-param-reassign': 'off',
     'react-hooks/exhaustive-deps': 'warn',

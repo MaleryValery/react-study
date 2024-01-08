@@ -1,14 +1,22 @@
-export type ItemProps = {
-  id: number;
-  description: string;
-  quantity: number;
-  packed: boolean;
-  onDeleteItem: (id: number) => void;
-};
+import ItemProps from '../types/items.types';
 
-function Item({ id, description, quantity, packed, onDeleteItem }: ItemProps) {
+function Item({
+  id,
+  description,
+  quantity,
+  packed,
+  onDeleteItem,
+  onToggleItem,
+}: ItemProps) {
+  // function handleChange() {}
+
   return (
     <li id={`${id}`}>
+      <input
+        type="checkbox"
+        checked={packed}
+        onChange={() => onToggleItem(id)}
+      />
       <span style={packed ? { textDecoration: 'line-through' } : {}}>
         {quantity} {description}
       </span>
