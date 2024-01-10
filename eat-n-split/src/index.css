@@ -48,6 +48,12 @@ body {
   background-color: var(--color-dark);
 }
 
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
 .sidebar ul {
   list-style: none;
   display: flex;
@@ -95,8 +101,9 @@ body {
 }
 
 .sidebar > .button {
-  float: right;
+  max-width: fit-content;
   margin-right: 1.2rem;
+  align-self: end;
 }
 
 .green {
