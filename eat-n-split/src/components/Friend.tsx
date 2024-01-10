@@ -1,14 +1,17 @@
 import Button from './Button';
+import { FriendProps } from '../types';
 
 type FriendProp = {
-  name: string;
-  image: string;
-  balance: number;
+  friend: FriendProps;
+  selectedFriend: FriendProps;
+  onSelection: (friend: FriendProps) => void;
 };
 
-function Friend({ name, image, balance }: FriendProp) {
+function Friend({ friend, onSelection, selectedFriend }: FriendProp) {
+  const { name, image, balance } = friend;
+  const isSelected = selectedFriend?.id === friend.id;
   return (
-    <li>
+    <li className={isSelected ? 'selected' : ''}>
       <img src={image} alt="friend" />
       {name}
       {balance < 0 && (
@@ -22,7 +25,10 @@ function Friend({ name, image, balance }: FriendProp) {
         </p>
       )}
       {balance === 0 && <p>You and {name} are even</p>}
-      <Button title="Select" />
+      <Button
+        title={!isSelected ? 'Select' : 'Close'}
+        onClick={() => onSelection(friend)}
+      />
     </li>
   );
 }

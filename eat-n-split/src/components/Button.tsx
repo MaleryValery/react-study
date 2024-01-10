@@ -1,11 +1,13 @@
-type ButtonProps = {
+import { MouseEvent, SyntheticEvent } from 'react';
+
+type ButtonProps<T> = {
   title: string;
-  onToggle: () => void;
+  onClick: (event?: MouseEvent | SyntheticEvent, data?: T) => void;
 };
 
-function Button({ title, onToggle }: ButtonProps) {
+function Button<T>({ title, onClick }: ButtonProps<T>) {
   return (
-    <button type="button" className="button" onChange={onToggle}>
+    <button type="button" className="button" onClick={onClick}>
       {title}
     </button>
   );
