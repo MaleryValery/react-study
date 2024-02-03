@@ -1,14 +1,15 @@
-import { WatchedMovieType } from '../types';
+import { WatchedMovieType } from '../utils/types';
 
 type WatchedMovieProp = {
   movie: WatchedMovieType;
+  onDeleteMovie: (movie: WatchedMovieType) => void;
 };
 
-function WatchedMovie({ movie }: WatchedMovieProp) {
+function WatchedMovie({ movie, onDeleteMovie }: WatchedMovieProp) {
   return (
     <li key={movie.imdbID}>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <h3>{movie.title}</h3>
       <div>
         <p>
           <span>⭐️</span>
@@ -22,6 +23,13 @@ function WatchedMovie({ movie }: WatchedMovieProp) {
           <span>⏳</span>
           <span>{movie.runtime} min</span>
         </p>
+        <button
+          type="button"
+          className="btn-delete"
+          onClick={() => onDeleteMovie(movie)}
+        >
+          ➕
+        </button>
       </div>
     </li>
   );

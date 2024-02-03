@@ -1,15 +1,20 @@
-import { WatchedMovieType } from '../types';
+import { WatchedMovieType } from '../utils/types';
 import WatchedMovie from './WatchedMovie';
 
 type WatchedProps = {
   watched: WatchedMovieType[];
+  onDeleteMovie: (movie: WatchedMovieType) => void;
 };
 
-function WatchedMoviesList({ watched }: WatchedProps) {
+function WatchedMoviesList({ watched, onDeleteMovie }: WatchedProps) {
   return (
     <ul className="list">
       {watched.map((movie) => (
-        <WatchedMovie key={movie.imdbID} movie={movie} />
+        <WatchedMovie
+          onDeleteMovie={onDeleteMovie}
+          key={movie.imdbID}
+          movie={movie}
+        />
       ))}
     </ul>
   );

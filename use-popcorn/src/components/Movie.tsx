@@ -1,19 +1,28 @@
-import { MovieType } from '../types';
+import { MovieType } from '../utils/types';
 
 type MovieProp = {
   movie: MovieType;
+  onSelectMovie: (id: string) => void;
 };
 
-function Movie({ movie }: MovieProp) {
+function Movie({ movie, onSelectMovie }: MovieProp) {
   return (
-    <li key={movie.imdbID}>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+    <li
+      key={movie.imdbID}
+      tabIndex={0}
+      role="menuitem"
+      onClick={() => onSelectMovie(movie.imdbID)}
+      onKeyDown={() => {}}
+    >
       <div>
-        <p>
-          <span>🗓</span>
-          <span>{movie.Year}</span>
-        </p>
+        <img src={movie.Poster} alt={`${movie.Title} poster`} />
+        <h3>{movie.Title}</h3>
+        <div>
+          <p>
+            <span>🗓</span>
+            <span>{movie.Year}</span>
+          </p>
+        </div>
       </div>
     </li>
   );
