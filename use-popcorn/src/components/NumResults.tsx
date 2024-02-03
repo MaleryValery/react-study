@@ -1,4 +1,4 @@
-import { MovieType } from '../types';
+import { MovieType } from '../utils/types';
 
 type NumResultsProps = {
   movieList: MovieType[];
