@@ -1,4 +1,4 @@
-/* :root {
+:root {
   --color-primary: #6741d9;
   --color-primary-light: #7950f2;
   --color-text: #dee2e6;
@@ -174,6 +174,7 @@ body {
 
 .list h3 {
   font-size: 1.8rem;
+  min-width: 20vw;
 }
 
 .list div {
@@ -338,7 +339,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-*/
 
 /*
 SPACING SYSTEM (px)
@@ -347,18 +347,3 @@ SPACING SYSTEM (px)
 FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 /52 / 62 / 74 / 86 / 98
 */
-* {
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  font-family: sans-serif;
-}
-
-.box {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  background-color: #f7f7f7;
-}
