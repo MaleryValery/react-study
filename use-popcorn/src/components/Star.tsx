@@ -37,7 +37,6 @@ function Star({
         <svg
           onClick={onClick}
           role="button"
-          // style={starStyle}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill={color}

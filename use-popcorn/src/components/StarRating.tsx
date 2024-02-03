@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Star from './Star';
 
 const boxStyle = {
@@ -22,13 +22,13 @@ type StarRatingProp = {
   color?: string;
   size?: number;
   defaultRating?: number;
-  onSetRating: (rating: number) => void;
+  onSetRating: Dispatch<SetStateAction<number>>;
 };
 
 function StarRating({
   maxRating = 10,
   color = '#fcc419',
-  size = 48,
+  size = 24,
   defaultRating = 0,
   onSetRating,
 }: StarRatingProp) {
@@ -43,6 +43,7 @@ function StarRating({
   const handlerMouseEnter = (newRating: number) => {
     setTempRating(newRating);
   };
+
   const handlerMouseLeave = () => {
     setTempRating(0);
   };
@@ -72,7 +73,7 @@ function StarRating({
 StarRating.defaultProps = {
   maxRating: 10,
   color: '#fcc419',
-  size: 48,
+  size: 24,
   defaultRating: 0,
 };
 
