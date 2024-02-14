@@ -13,6 +13,8 @@ export type WatchedMovieType = {
   runtime: number;
   imdbRating: number;
   userRating?: number;
+
+  countRatingDecisions?: number;
 };
 export type SearchResponse = {
   Response: string;
@@ -46,6 +48,7 @@ export type MovieDetails = {
   Production: string;
   Website: string;
   Response: string;
+  countRatingDecisions?: number;
 };
 
 export type RatingsType = {
