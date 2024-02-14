@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { API_KEY } from '../utils/consts';
 import { MovieDetails, WatchedMovieType } from '../utils/types';
 import StarRating from './StarRating';
 import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
+import { useKeybordKey } from '../utils/useKeybordKey';
 
 type SelectedIdProps = {
   selectedId: string;
@@ -23,19 +24,15 @@ function SelectedMovie({
   const [error, setError] = useState('');
   const [rating, setRating] = useState(0);
 
-  const handlerExitEvent = (event: KeyboardEvent) => {
-    if (event.code === 'Escape') {
-      onCloseMovie();
-    }
-  };
+  const countRef = useRef(0);
+
+  useKeybordKey('Escape', onCloseMovie);
 
   useEffect(() => {
-    document.addEventListener('keydown', handlerExitEvent);
-
-    return () => {
-      document.removeEventListener('keydown', handlerExitEvent);
-    };
-  }, []);
+    if (rating) {
+      countRef.current += 1;
+    }
+  }, [rating]);
 
   useEffect(() => {
     if (!movie?.Title) return;
@@ -81,6 +78,7 @@ function SelectedMovie({
       imdbID: newMovie.imdbID,
       poster: newMovie.Poster,
       userRating: rating,
+      countRatingDecisions: countRef.current,
     };
 
     onAddWatchedMovie(newWatchedMovie);
