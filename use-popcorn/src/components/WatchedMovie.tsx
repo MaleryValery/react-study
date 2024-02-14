@@ -28,7 +28,7 @@ function WatchedMovie({ movie, onDeleteMovie }: WatchedMovieProp) {
           className="btn-delete"
           onClick={() => onDeleteMovie(movie)}
         >
-          ➕
+          <span>❌</span>
         </button>
       </div>
     </li>
