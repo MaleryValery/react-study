@@ -10,6 +10,7 @@ export type StateType = {
   progress: number;
   highscore: number;
   secLeft: number | null;
+  level: string | null;
 };
 
 export type ActionType = {

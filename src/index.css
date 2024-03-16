@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
 
 :root {
   --color-darkest: #343a40;
@@ -10,7 +10,6 @@
   --color-accent: #ffa94d;
 }
 
-
 * {
   margin: 0;
   padding: 0;
@@ -19,7 +18,8 @@
 
 html {
   font-size: 62.5%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
@@ -62,7 +62,7 @@ img {
 }
 
 h1 {
-  font-family: "Codystar";
+  font-family: 'Codystar';
   font-size: 5.6rem;
 }
 
@@ -213,11 +213,25 @@ progress {
   border-radius: 100px;
 }
 
+.difficulty {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+.difficulty .btn {
+  min-width: 140px;
+}
+.difficulty .btn-active {
+  background-color: var(--color-theme);
+}
+
 /* CREDIT: https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
 .loader {
   width: 50px;
   height: 24px;
-  background: radial-gradient(circle closest-side, currentColor 90%, #0000) 0% 50%,
+  background:
+    radial-gradient(circle closest-side, currentColor 90%, #0000) 0% 50%,
     radial-gradient(circle closest-side, currentColor 90%, #0000) 50% 50%,
     radial-gradient(circle closest-side, currentColor 90%, #0000) 100% 50%;
   background-size: calc(100% / 3) 12px;
@@ -227,16 +241,28 @@ progress {
 
 @keyframes loader {
   20% {
-    background-position: 0% 0%, 50% 50%, 100% 50%;
+    background-position:
+      0% 0%,
+      50% 50%,
+      100% 50%;
   }
   40% {
-    background-position: 0% 100%, 50% 0%, 100% 50%;
+    background-position:
+      0% 100%,
+      50% 0%,
+      100% 50%;
   }
   60% {
-    background-position: 0% 50%, 50% 100%, 100% 0%;
+    background-position:
+      0% 50%,
+      50% 100%,
+      100% 0%;
   }
   80% {
-    background-position: 0% 50%, 50% 50%, 100% 100%;
+    background-position:
+      0% 50%,
+      50% 50%,
+      100% 100%;
   }
 }
 

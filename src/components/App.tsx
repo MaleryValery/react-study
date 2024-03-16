@@ -23,6 +23,7 @@ const initState: StateType = {
   progress: 0,
   highscore: 0,
   secLeft: null,
+  level: null,
 };
 
 function reducer(state: StateType, action: ActionType): StateType {
@@ -53,7 +54,21 @@ function reducer(state: StateType, action: ActionType): StateType {
         ...initState,
         questions: state.questions,
         status: Status.active,
+        secLeft: SEC_PER_QUES * state.questions.length,
       };
+    case ACTION.level: {
+      const filteredQuestion = state.questions.filter((q) => {
+        if (action.payload === 'easy') return q.points < 20;
+        if (action.payload === 'medium') return q.points < 30;
+        if (action.payload === 'hard') return q.points >= 30;
+        return q;
+      });
+      return {
+        ...state,
+        level: action.payload ? (action.payload as string) : null,
+        questions: filteredQuestion,
+      };
+    }
     case ACTION.answerReceived: {
       const question = state.questions.at(state.currentQuestion);
       return {
@@ -98,6 +113,7 @@ function App() {
     progress,
     highscore,
     secLeft,
+    level,
   } = state;
 
   const numQuestions = questions.length;
@@ -122,7 +138,11 @@ function App() {
         {status === Status.loading && <Loader />}
         {status === Status.error && <Error />}
         {status === Status.ready && (
-          <StartScreen numberQuestions={numQuestions} dispatch={dispatch} />
+          <StartScreen
+            numberQuestions={numQuestions}
+            dispatch={dispatch}
+            level={level}
+          />
         )}
         {status === Status.active && (
           <>
