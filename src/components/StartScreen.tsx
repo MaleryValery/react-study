@@ -1,9 +1,10 @@
 import { Dispatch } from 'react';
 import { ACTION } from '../conts';
+import { ActionType } from '../types';
 
 type StartScreenType = {
   numberQuestions: number;
-  dispatch: Dispatch<{ [key: string]: string }>;
+  dispatch: Dispatch<ActionType>;
 };
 
 function StartScreen({ numberQuestions, dispatch }: StartScreenType) {

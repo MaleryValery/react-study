@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 function MainSection({ children }: { children: ReactNode }) {
-  return <div>{children}</div>;
+  return <div className="main">{children}</div>;
 }
 
 export default MainSection;
