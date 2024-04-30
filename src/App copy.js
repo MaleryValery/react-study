@@ -1,6 +1,10 @@
-import { createContext, useContext, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import { faker } from '@faker-js/faker';
+import { Archive } from './Archive';
+import { Header } from './Header';
+import { Main } from './Results';
+import PostContext from './context';
+
 function createRandomPost() {
   return {
     title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
@@ -8,11 +12,10 @@ function createRandomPost() {
   };
 }
 
-const PostContext = createContext();
-
-function PostProvider({ children }) {
+function App() {
   const [posts, setPosts] = useState(() => Array.from({ length: 30 }, () => createRandomPost()));
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFakeDark, setIsFakeDark] = useState(false);
 
   // Derived state. These are the posts that will actually be displayed
   const searchedPosts =
@@ -30,6 +33,14 @@ function PostProvider({ children }) {
     setPosts([]);
   }
 
+  // Whenever `isFakeDark` changes, we toggle the `fake-dark-mode` class on the HTML element (see in "Elements" dev tool).
+  useEffect(
+    function () {
+      document.documentElement.classList.toggle('fake-dark-mode');
+    },
+    [isFakeDark]
+  );
+
   return (
     <PostContext.Provider
       value={{
@@ -40,15 +51,25 @@ function PostProvider({ children }) {
         setSearchQuery,
       }}
     >
-      {children}
+      <section>
+        <button
+          onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
+          className="btn-fake-dark-mode"
+        >
+          {isFakeDark ? '☀️' : '🌙'}
+        </button>
+
+        <Header />
+        <Main />
+        <Archive />
+        <Footer />
+      </section>
     </PostContext.Provider>
   );
 }
 
-function usePosts() {
-  const context = useContext(PostContext);
-  if (context === undefined) throw new Error('PostContext was used outside PostProvider');
-  return context;
+function Footer() {
+  return <footer>&copy; by The Atomic Blog ✌️</footer>;
 }
 
-export { PostContext, PostProvider, usePosts };
+export default App;

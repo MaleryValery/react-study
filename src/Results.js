@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { FormAddPost } from './Form';
 import { Posts } from './Posts';
-import PostContext from './context';
+import { usePosts } from './context';
 
 export function Results() {
-  const { posts } = useContext(PostContext);
+  const { posts } = usePosts();
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
 
