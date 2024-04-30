@@ -5,6 +5,7 @@ module.exports = {
     jest: true,
     node: true,
   },
+  moduleResolution: 'node',
   extends: [
     'airbnb',
     'airbnb-typescript',
@@ -27,6 +28,16 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        trailingComma: 'es5',
+        tabWidth: 2,
+        semi: true,
+        singleQuote: true,
+        printWidth: 80,
+      },
+    ],
     'import/prefer-default-export': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'jsx-a11y/label-has-associated-control': 'off',
