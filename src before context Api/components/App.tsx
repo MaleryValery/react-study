@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 import { ICity } from '../types';
 
@@ -15,7 +16,7 @@ import CountryList from './CountryList';
 import City from './City';
 import Form from './Form';
 
-const BASE_URL = 'http://localhost:9000/cities';
+const BASE_URL = 'http://localhost:9000';
 
 function App() {
   const [cities, setCities] = useState<ICity[]>([]);
@@ -45,14 +46,8 @@ function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="app" element={<AppLayout />}>
           <Route index element={<p>list countries</p>} />
-          <Route
-            path="countries"
-            element={<CountryList cities={cities} isLoading={isLoading} />}
-          />
-          <Route
-            path="cities"
-            element={<CityList isLoading={isLoading} cities={cities} />}
-          />
+          <Route path="countries" element={<CountryList cities={cities} isLoading={isLoading} />} />
+          <Route path="cities" element={<CityList isLoading={isLoading} cities={cities} />} />
           <Route path="cities/:id" element={<City />} />
           <Route path="form" element={<Form />} />
         </Route>

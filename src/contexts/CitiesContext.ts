@@ -1,14 +1,18 @@
 import { createContext, useContext } from 'react';
 import { ICity } from '../types';
 
-const BASE_URL = 'http://localhost:9000/cities';
+const BASE_URL = 'http://localhost:9000';
 interface IinitValues {
-  cities: ICity[];
+  cities: ICity[] | null;
   isLoading: boolean;
+  currentCity: ICity | null;
+  getCity: (id: string) => Promise<void>;
 }
 const initValues = {
-  cities: [],
+  cities: null,
   isLoading: false,
+  currentCity: null,
+  getCity: async () => {},
 };
 
 const CitiesContext = createContext<IinitValues>(initValues);

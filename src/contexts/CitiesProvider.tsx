@@ -6,10 +6,13 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
   const [cities, setCities] = useState<ICity[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [currentCity, setCurrentCity] = useState(null);
+
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch(BASE_URL);
+        setIsLoading(true);
+        const response = await fetch(`${BASE_URL}/cities`);
         const data = await response.json();
         setCities(data);
       } catch (err) {
@@ -21,11 +24,26 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
     fetchCities();
   }, []);
 
+  const getCity = async (id: string) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${BASE_URL}/cities/${id}`);
+      const data = await response.json();
+      setCurrentCity(data);
+    } catch (err) {
+      console.log((err as Error).message, 'cannot load');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <CitiesContext.Provider
       value={{
         cities,
         isLoading,
+        currentCity,
+        getCity: getCity,
       }}
     >
       {children}
