@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './Form.module.css';
 import Button from './Button';
+import BackButton from './BackButton';
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -25,45 +26,25 @@ function Form() {
     <form className={styles.form}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
-        <input
-          id="cityName"
-          onChange={(e) => setCityName(e.target.value)}
-          value={cityName}
-        />
+        <input id="cityName" onChange={(e) => setCityName(e.target.value)} value={cityName} />
         {/* <span className={styles.flag}>{emoji}</span> */}
       </div>
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <input
-          id="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
-        />
+        <input id="date" onChange={(e) => setDate(e.target.value)} value={date} />
       </div>
 
       <div className={styles.row}>
         <label htmlFor="notes">Notes about your trip to {cityName}</label>
-        <textarea
-          id="notes"
-          onChange={(e) => setNotes(e.target.value)}
-          value={notes}
-        />
+        <textarea id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} />
       </div>
 
       <div className={styles.buttons}>
         <Button onClick={() => {}} typeBtn="primary">
           Add
         </Button>
-        <Button
-          onClick={(e: SyntheticEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            navigate(-1);
-          }}
-          typeBtn="back"
-        >
-          &larr; Back
-        </Button>
+        <BackButton />
       </div>
     </form>
   );
