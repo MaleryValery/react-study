@@ -1,17 +1,10 @@
 import { useParams, useSearchParams } from 'react-router-dom';
 import styles from './City.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useCities } from '../contexts/CitiesContext';
 import Spinner from './Spinner';
 import BackButton from './BackButton';
-
-const formatDate = (date: string) =>
-  new Intl.DateTimeFormat('en', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    weekday: 'long',
-  }).format(date ? new Date(date) : Date.now());
+import { formatDate } from '../utils/functions';
 
 function City() {
   const { id } = useParams();
