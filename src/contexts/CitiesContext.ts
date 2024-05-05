@@ -7,19 +7,22 @@ interface IinitValues {
   isLoading: boolean;
   currentCity: ICity | null;
   getCity: (id: string) => Promise<void>;
+  createCity: (newCity: Omit<ICity, 'id'>) => Promise<void>;
 }
 const initValues = {
   cities: null,
   isLoading: false,
   currentCity: null,
   getCity: async () => {},
+  createCity: async () => {},
 };
 
 const CitiesContext = createContext<IinitValues>(initValues);
 
 function useCities() {
   const context = useContext(CitiesContext);
-  if (context === undefined) throw new Error('Cities context is used outside of CitiesProvider');
+  if (context === undefined)
+    throw new Error('Cities context is used outside of CitiesProvider');
   return context;
 }
 
