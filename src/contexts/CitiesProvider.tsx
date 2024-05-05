@@ -56,6 +56,20 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const deleteCity = async (cityId: string) => {
+    try {
+      setIsLoading(true);
+      await fetch(`${BASE_URL}/cities/${cityId}`, {
+        method: 'DELETE',
+      });
+      setCities((prevData) => prevData.filter((city) => city.id !== cityId));
+    } catch (error) {
+      console.log((error as Error).message, 'cannot load');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <CitiesContext.Provider
       value={{
@@ -64,6 +78,7 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
         currentCity,
         getCity: getCity,
         createCity: createCity,
+        deleteCity: deleteCity,
       }}
     >
       {children}

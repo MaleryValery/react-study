@@ -7,6 +7,7 @@ interface IinitValues {
   isLoading: boolean;
   currentCity: ICity | null;
   getCity: (id: string) => Promise<void>;
+  deleteCity: (id: string) => Promise<void>;
   createCity: (newCity: Omit<ICity, 'id'>) => Promise<void>;
 }
 const initValues = {
@@ -14,6 +15,7 @@ const initValues = {
   isLoading: false,
   currentCity: null,
   getCity: async () => {},
+  deleteCity: async () => {},
   createCity: async () => {},
 };
 

@@ -53,7 +53,7 @@ function Form() {
     fetchCityData();
   }, [lat, lng]);
 
-  const handlerSubmit = (e: SyntheticEvent) => {
+  const handlerSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!cityName) return;
 
@@ -68,7 +68,8 @@ function Form() {
         lng,
       },
     };
-    createCity(newCity);
+    await createCity(newCity);
+    navigate('/app/cities');
   };
 
   if (!lat || !lng)
