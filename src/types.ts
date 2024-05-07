@@ -50,3 +50,7 @@ interface IAdministrative {
   wikidataId?: string;
   geonameId?: number;
 }
+
+export interface IUser {
+  [key: string]: string;
+}

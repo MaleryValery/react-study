@@ -37,16 +37,19 @@ const reducer = (state: IinitState, action: Actionstype): IinitState => {
         ...state,
         isLoading: false,
         cities: [...state.cities, action.payload],
+        currentCity: action.payload,
       };
     case 'cities/deleted':
       return {
         ...state,
+        isLoading: false,
         cities: state.cities.filter((city) => city.id !== action.payload),
+        currentCity: null,
       };
     case 'rejected':
       return { ...state, isLoading: false, error: action.payload };
-    default: 
-      return state;
+    default:
+      throw new Error('Action is not defined');
   }
 };
 
@@ -55,10 +58,6 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
     reducer,
     initValues
   );
-  // const [cities, setCities] = useState<ICity[]>([]);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // const [currentCity, setCurrentCity] = useState(null);
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -75,6 +74,8 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const getCity = async (id: string) => {
+    console.log('🚀 ~ getCity ~ id === currentCity?.id:', id, currentCity?.id);
+    if (id === currentCity?.id) return;
     try {
       dispatch({ type: 'loading' });
       const response = await fetch(`${BASE_URL}/cities/${id}`);

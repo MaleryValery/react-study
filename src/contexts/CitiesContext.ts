@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 import { ICity } from '../types';
 
 const BASE_URL = 'http://localhost:9000';
-interface IinitValues {
+interface IInitValues {
   cities: ICity[] | null;
   isLoading: boolean;
   currentCity: ICity | null;
@@ -19,7 +19,7 @@ const initValues = {
   createCity: async () => {},
 };
 
-const CitiesContext = createContext<IinitValues>(initValues);
+const CitiesContext = createContext<IInitValues>(initValues);
 
 function useCities() {
   const context = useContext(CitiesContext);
