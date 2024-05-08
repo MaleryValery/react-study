@@ -18,9 +18,7 @@ const initState = {
   isAuth: false,
 };
 
-type Actions =
-  | { type: 'login'; payload: IUser }
-  | { type: 'logout'; payload: IUser | null };
+type Actions = { type: 'login'; payload: IUser } | { type: 'logout' };
 
 const reducer = (state: IAuthState, action: Actions): IAuthState => {
   switch (action.type) {
@@ -41,7 +39,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function logout() {}
+  function logout() {
+    dispatch({ type: 'logout' });
+  }
   return (
     <AuthContext.Provider value={{ user, isAuth, login, logout }}>
       {children}

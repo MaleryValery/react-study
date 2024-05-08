@@ -12,27 +12,36 @@ import CountryList from './CountryList';
 import City from './City';
 import Form from './Form';
 import CitiesProvider from '../contexts/CitiesProvider';
+import AuthProvider from '../contexts/AuthProvider';
+import ProtectedRoute from '../pages/ProtectedRoute';
 
 function App() {
   return (
-    <CitiesProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="product" element={<Product />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="app" element={<AppLayout />}>
-            <Route index element={<p>list countries</p>} />
-            <Route path="countries" element={<CountryList />} />
-            <Route path="cities" element={<CityList />} />
-            <Route path="cities/:id" element={<City />} />
-            <Route path="form" element={<Form />} />
-          </Route>
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </CitiesProvider>
+    <AuthProvider>
+      <CitiesProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="login" element={<Login />} />
+            <Route path="product" element={<Product />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route
+              path="app"
+              element={
+                <ProtectedRoute redirectPath="/login" element={<AppLayout />} />
+              }
+            >
+              <Route index element={<p>list countries</p>} />
+              <Route path="countries" element={<CountryList />} />
+              <Route path="cities" element={<CityList />} />
+              <Route path="cities/:id" element={<City />} />
+              <Route path="form" element={<Form />} />
+            </Route>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </CitiesProvider>
+    </AuthProvider>
   );
 }
 
