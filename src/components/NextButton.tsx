@@ -1,25 +1,14 @@
-import { Dispatch } from 'react';
-import { ActionType } from '../types';
-import { ACTION } from '../conts';
+import { useQuizContext } from '../context/QuizContext';
 
-function NextButton({
-  answer,
-  onDispatch,
-  currentQuestion,
-  numQuestions,
-}: {
-  answer: number | null;
-  numQuestions: number;
-  currentQuestion: number;
-  onDispatch: Dispatch<ActionType>;
-}) {
+function NextButton() {
+  const { answer, dispatch, currentQuestion, numQuestions } = useQuizContext();
   if (answer === null) return null;
 
   const handleClickNext = () => {
-    onDispatch({ type: ACTION.nextQuestion });
+    dispatch({ type: 'nextQuestion' });
   };
   const handleClickFinish = () => {
-    onDispatch({ type: ACTION.finish });
+    dispatch({ type: 'finish' });
   };
   if (currentQuestion < numQuestions - 1)
     return (

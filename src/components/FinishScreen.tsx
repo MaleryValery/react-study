@@ -1,19 +1,8 @@
-import { Dispatch } from 'react';
-import { ActionType } from '../types';
-import { ACTION } from '../conts';
+import { useQuizContext } from '../context/QuizContext';
 
-function FinishScreen({
-  points,
-  maxPoints,
-  onDispatch,
-  highscore,
-}: {
-  points: number;
-  maxPoints: number;
-  highscore: number;
-  onDispatch: Dispatch<ActionType>;
-}) {
-  const percentage = (points / maxPoints) * 100;
+function FinishScreen() {
+  const { points, totalScore, dispatch, highscore } = useQuizContext();
+  const percentage = (points / totalScore) * 100;
 
   let emoji = '';
   if (percentage === 100) emoji = '🥇';
@@ -22,14 +11,14 @@ function FinishScreen({
   if (percentage < 50) emoji = '👀';
 
   const handleRestart = () => {
-    onDispatch({ type: ACTION.restart });
+    dispatch({ type: 'restart' });
   };
 
   return (
     <>
       <p className="result">
         <span>{emoji}</span>
-        {` you scored ${points} out of ${maxPoints} 
+        {` you scored ${points} out of ${totalScore} 
        (${Math.ceil(percentage)}%)`}
       </p>
       <p className="highscore">Highscore: {highscore} points</p>

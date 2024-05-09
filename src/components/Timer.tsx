@@ -1,14 +1,8 @@
-import { Dispatch, useEffect } from 'react';
-import { ActionType } from '../types';
-import { ACTION } from '../conts';
+import { useEffect } from 'react';
+import { useQuizContext } from '../context/QuizContext';
 
-function Timer({
-  onDispatch,
-  time,
-}: {
-  onDispatch: Dispatch<ActionType>;
-  time: number | null;
-}) {
+function Timer() {
+  const { dispatch, secLeft } = useQuizContext();
   const formatTime = (timer: number) => {
     if (!timer) return null;
     const min = Math.floor(timer / 60);
@@ -18,12 +12,12 @@ function Timer({
 
   useEffect(() => {
     const timer = setInterval(() => {
-      onDispatch({ type: ACTION.time });
+      dispatch({ type: 'time' });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [onDispatch]);
-  return <div className="timer">{formatTime(time || 0)}</div>;
+  }, [dispatch]);
+  return <div className="timer">{formatTime(secLeft || 0)}</div>;
 }
 
 export default Timer;

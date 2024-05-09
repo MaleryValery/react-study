@@ -1,12 +1,13 @@
-import { QuestionComponentType } from '../types';
+import { useQuizContext } from '../context/QuizContext';
 import Options from './Options';
 
-function Question({ question, onAnswer, answer }: QuestionComponentType) {
+function Question() {
+  const { questions, currentQuestion } = useQuizContext();
   return (
     <div>
-      <h4>{question.question}</h4>
+      <h4>{questions[currentQuestion].question}</h4>
       <div className="options">
-        <Options answer={answer} onAnswer={onAnswer} question={question} />
+        <Options />
       </div>
     </div>
   );

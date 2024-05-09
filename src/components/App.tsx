@@ -1,11 +1,9 @@
-import { useEffect, useReducer } from 'react';
 import MainSection from './MainSection';
 import Header from './Header';
 import Error from './Error';
 import Loader from './Loader';
 
-import { Status, ACTION, SEC_PER_QUES } from '../conts';
-import { ActionType, QuestionType, StateType } from '../types';
+import { Status } from '../conts';
 import StartScreen from './StartScreen';
 import Question from './Question';
 import NextButton from './NextButton';
@@ -13,170 +11,28 @@ import Progress from './Progress';
 import FinishScreen from './FinishScreen';
 import Timer from './Timer';
 import Footer from './Footer';
-
-const initState: StateType = {
-  questions: [],
-  status: Status.loading,
-  currentQuestion: 0,
-  answer: null,
-  points: 0,
-  progress: 0,
-  highscore: 0,
-  secLeft: null,
-  level: null,
-};
-
-function reducer(state: StateType, action: ActionType): StateType {
-  switch (action.type) {
-    case ACTION.dataReceived:
-      return {
-        ...state,
-        questions: action.payload as QuestionType[],
-        status: Status.ready,
-      };
-    case ACTION.dataFailed:
-      return { ...state, status: Status.error };
-    case ACTION.start:
-      return {
-        ...state,
-        status: Status.active,
-        secLeft: SEC_PER_QUES * state.questions.length,
-      };
-    case ACTION.finish:
-      return {
-        ...state,
-        status: Status.finish,
-        highscore:
-          state.points > state.highscore ? state.points : state.highscore,
-      };
-    case ACTION.restart:
-      return {
-        ...initState,
-        questions: state.questions,
-        status: Status.active,
-        secLeft: SEC_PER_QUES * state.questions.length,
-      };
-    case ACTION.level: {
-      const filteredQuestion = state.questions.filter((q) => {
-        if (action.payload === 'easy') return q.points < 20;
-        if (action.payload === 'medium') return q.points < 30;
-        if (action.payload === 'hard') return q.points >= 30;
-        return q;
-      });
-      return {
-        ...state,
-        level: action.payload ? (action.payload as string) : null,
-        questions: filteredQuestion,
-      };
-    }
-    case ACTION.answerReceived: {
-      const question = state.questions.at(state.currentQuestion);
-      return {
-        ...state,
-        answer: action.payload as number,
-        progress: state.progress + 1,
-        points:
-          action.payload === question?.correctOption
-            ? state.points + (question?.points || 0)
-            : state.points,
-      };
-    }
-    case ACTION.nextQuestion:
-      return {
-        ...state,
-        currentQuestion:
-          state.currentQuestion !== state.questions.length - 1
-            ? state.currentQuestion + 1
-            : state.currentQuestion,
-        answer: null,
-      };
-    case ACTION.time:
-      return {
-        ...state,
-        status: state.secLeft === 0 ? Status.finish : state.status,
-        secLeft: state.secLeft ? state.secLeft - 1 : state.secLeft,
-      };
-
-    default:
-      return state;
-  }
-}
+import { useQuizContext } from '../context/QuizContext';
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initState);
-  const {
-    status,
-    questions,
-    currentQuestion,
-    answer,
-    points,
-    progress,
-    highscore,
-    secLeft,
-    level,
-  } = state;
-
-  const numQuestions = questions.length;
-  const totalScore = questions.reduce((acc, el) => {
-    // eslint-disable-next-line no-param-reassign
-    acc += el.points;
-    return acc;
-  }, 0);
-  useEffect(() => {
-    fetch('http://localhost:9000/questions')
-      .then((data) => data.json())
-      .then((data: QuestionType[]) =>
-        dispatch({ type: ACTION.dataReceived, payload: data })
-      )
-      .catch(() => dispatch({ type: ACTION.dataFailed }));
-  }, []);
-
+  const { status } = useQuizContext();
   return (
     <div className="app">
       <Header />
       <MainSection>
         {status === Status.loading && <Loader />}
         {status === Status.error && <Error />}
-        {status === Status.ready && (
-          <StartScreen
-            numberQuestions={numQuestions}
-            dispatch={dispatch}
-            level={level}
-          />
-        )}
+        {status === Status.ready && <StartScreen />}
         {status === Status.active && (
           <>
-            <Progress
-              points={points}
-              index={currentQuestion}
-              numQuestions={numQuestions}
-              totalScore={totalScore}
-              progress={progress}
-            />
-            <Question
-              onAnswer={dispatch}
-              question={questions[currentQuestion]}
-              answer={answer}
-            />
+            <Progress />
+            <Question />
             <Footer>
-              <Timer onDispatch={dispatch} time={secLeft} />
-              <NextButton
-                currentQuestion={currentQuestion}
-                numQuestions={numQuestions}
-                onDispatch={dispatch}
-                answer={answer}
-              />
+              <Timer />
+              <NextButton />
             </Footer>
           </>
         )}
-        {status === Status.finish && (
-          <FinishScreen
-            highscore={highscore}
-            onDispatch={dispatch}
-            points={points}
-            maxPoints={totalScore}
-          />
-        )}
+        {status === Status.finish && <FinishScreen />}
       </MainSection>
     </div>
   );

@@ -1,5 +1,4 @@
 import { Dispatch } from 'react';
-import { Status } from './conts';
 
 export type StateType = {
   questions: QuestionType[];
@@ -11,12 +10,39 @@ export type StateType = {
   highscore: number;
   secLeft: number | null;
   level: string | null;
+  numQuestions: number;
+  totalScore: number;
 };
 
-export type ActionType = {
-  type: string;
-  payload?: QuestionType[] | Status | string | number;
-};
+export type ActionType =
+  | {
+      type: 'dataReceived';
+      payload: QuestionType[];
+    }
+  | {
+      type: 'dataFailed';
+    }
+  | {
+      type: 'answerReceived';
+      payload: number;
+    }
+  | {
+      type: 'nextQuestion';
+    }
+  | {
+      type: 'time';
+    }
+  | {
+      type: 'level';
+      payload: string;
+    }
+  | {
+      type: 'start';
+    }
+  | {
+      type: 'restart';
+    }
+  | { type: 'finish' };
 
 export type QuestionType = {
   question: string;
@@ -30,3 +56,11 @@ export type QuestionComponentType = {
   onAnswer: Dispatch<ActionType>;
   answer: number | null;
 };
+
+export enum Status {
+  loading,
+  error,
+  ready,
+  active,
+  finish,
+}

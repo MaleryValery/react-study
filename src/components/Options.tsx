@@ -1,14 +1,15 @@
-import { ACTION } from '../conts';
-import { QuestionComponentType } from '../types';
+import { useQuizContext } from '../context/QuizContext';
 
-function Options({ question, onAnswer, answer }: QuestionComponentType) {
+function Options() {
+  const { questions, currentQuestion, dispatch, answer } = useQuizContext();
+  const question = questions[currentQuestion];
   const isAnswer = answer !== null;
 
   const checkAnswer = (answerIndex: number): string => {
     return answerIndex === question.correctOption ? 'correct' : 'wrong';
   };
   const handlerClickAnswer = (index: number) => {
-    onAnswer({ type: ACTION.answerReceived, payload: index });
+    dispatch({ type: 'answerReceived', payload: index });
   };
   return (
     <>
