@@ -8,7 +8,8 @@ import Spinner from './Spinner';
 function CityList() {
   const { cities, isLoading } = useCities();
   if (isLoading) return <Spinner />;
-  if (!cities.length) return <Message message="Add your first city by clicking on the map" />;
+  if (!cities?.length)
+    return <Message message="Add your first city by clicking on the map" />;
 
   return (
     <ul className={styles.cityList}>

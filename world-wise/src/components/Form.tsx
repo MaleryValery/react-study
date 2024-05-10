@@ -9,7 +9,7 @@ import Message from './Message';
 import Spinner from './Spinner';
 import BackButton from './BackButton';
 import { ICityFromGeo } from '../types';
-import { formatDate, convertToEmoji } from '../utils/functions';
+import { convertToEmoji } from '../utils/functions';
 
 import { useUrlPosition } from '../hooks/useUrlPosition';
 import { useCities } from '../contexts/CitiesContext';
@@ -40,7 +40,6 @@ function Form() {
           throw new Error(
             'I guess this is not discovered place, you can click on another place 🧭'
           );
-        console.log('🚀 ~ fetchCityData ~ data:', data);
         setCityName(data.city || data.locality);
         setCountry(data.countryName);
         setEmoji(convertToEmoji(data.countryCode));

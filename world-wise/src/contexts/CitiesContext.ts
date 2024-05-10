@@ -10,6 +10,7 @@ interface IInitValues {
   deleteCity: (id: string) => Promise<void>;
   createCity: (newCity: Omit<ICity, 'id'>) => Promise<void>;
 }
+
 const initValues = {
   cities: null,
   isLoading: false,

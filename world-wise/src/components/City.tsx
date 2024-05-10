@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './City.module.css';
 import { useEffect } from 'react';
 import { useCities } from '../contexts/CitiesContext';
@@ -9,17 +9,11 @@ import { formatDate } from '../utils/functions';
 function City() {
   const { id } = useParams();
   const { getCity, currentCity, isLoading } = useCities();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const lat = searchParams.get('lat');
-  const lng = searchParams.get('lng');
-  // TEMP DATA
-
-  // const { cityName, emoji, date, notes } = currentCity;
 
   useEffect(() => {
     if (!id) return;
     getCity(id);
-  }, [id]);
+  }, [id, getCity]);
 
   if (isLoading) return <Spinner />;
 

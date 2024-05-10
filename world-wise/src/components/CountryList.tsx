@@ -9,7 +9,8 @@ import Spinner from './Spinner';
 function CountryList() {
   const { isLoading, cities } = useCities();
   if (isLoading) return <Spinner />;
-  if (!cities.length) return <Message message="Add your first city by clicking on the map" />;
+  if (!cities?.length)
+    return <Message message="Add your first city by clicking on the map" />;
 
   const countries = cities.reduce((arr: ICountry[], city) => {
     if (!arr.map((el: ICountry) => el.country).includes(city.country)) {
@@ -21,7 +22,11 @@ function CountryList() {
   return (
     <ul className={styles.countryList}>
       {countries.map((country: ICountry) => (
-        <CountryItem key={country.country} country={country.country} emoji={country.emoji} />
+        <CountryItem
+          key={country.country}
+          country={country.country}
+          emoji={country.emoji}
+        />
       ))}
     </ul>
   );

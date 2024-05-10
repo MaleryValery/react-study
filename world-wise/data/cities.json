@@ -61,27 +61,15 @@
       "id": "17806203"
     },
     {
-      "cityName": "Amsterdam",
-      "country": "Netherlands",
-      "emoji": "🇳🇱",
-      "date": "2027-01-31T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.377956,
-        "lng": 4.89707
-      },
-      "id": "9844323497"
-    },
-    {
-      "id": "aa52",
-      "cityName": "Andorra",
+      "id": "1558",
+      "cityName": "Gavet de la Conca",
       "country": "Spain",
       "emoji": "🇪🇸",
       "date": "Fri May 10 2024",
       "notes": "",
       "position": {
-        "lat": 40.96330795307353,
-        "lng": -0.41748046875000006
+        "lat": 42.06560675405716,
+        "lng": 0.9887695312500001
       }
     }
   ]

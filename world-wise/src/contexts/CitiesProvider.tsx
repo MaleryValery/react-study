@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useReducer } from 'react';
+import { ReactNode, useCallback, useEffect, useReducer } from 'react';
 import { BASE_URL, CitiesContext } from './CitiesContext';
 import { ICity } from '../types';
 
@@ -73,18 +73,20 @@ const CitiesProvider = ({ children }: { children: ReactNode }) => {
     fetchCities();
   }, []);
 
-  const getCity = async (id: string) => {
-    console.log('🚀 ~ getCity ~ id === currentCity?.id:', id, currentCity?.id);
-    if (id === currentCity?.id) return;
-    try {
-      dispatch({ type: 'loading' });
-      const response = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await response.json();
-      dispatch({ type: 'city/loaded', payload: data });
-    } catch (err) {
-      dispatch({ type: 'rejected', payload: (err as Error).message });
-    }
-  };
+  const getCity = useCallback(
+    async (id: string) => {
+      if (id === currentCity?.id) return;
+      try {
+        dispatch({ type: 'loading' });
+        const response = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await response.json();
+        dispatch({ type: 'city/loaded', payload: data });
+      } catch (err) {
+        dispatch({ type: 'rejected', payload: (err as Error).message });
+      }
+    },
+    [currentCity?.id]
+  );
 
   const createCity = async (newCity: Omit<ICity, 'id'>) => {
     try {
