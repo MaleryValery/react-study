@@ -71,6 +71,18 @@
         "lng": 4.89707
       },
       "id": "9844323497"
+    },
+    {
+      "id": "aa52",
+      "cityName": "Andorra",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "Fri May 10 2024",
+      "notes": "",
+      "position": {
+        "lat": 40.96330795307353,
+        "lng": -0.41748046875000006
+      }
     }
   ]
 }
