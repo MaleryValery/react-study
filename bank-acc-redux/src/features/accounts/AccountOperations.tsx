@@ -4,9 +4,9 @@ import { deposit, payLoan, requestLoan, withdraw } from './accountSlice';
 // import accountReducer from './accountSlice';
 
 function AccountOperations() {
-  const [depositAmount, setDepositAmount] = useState(0);
-  const [withdrawalAmount, setWithdrawalAmount] = useState(0);
-  const [currentLoan, setCurrentLoan] = useState(0);
+  const [depositAmount, setDepositAmount] = useState<number | null>(null);
+  const [withdrawalAmount, setWithdrawalAmount] = useState<number | null>(null);
+  const [currentLoan, setCurrentLoan] = useState<number | null>(null);
   const [currLoanPurpose, setCurrLoanPurpose] = useState('');
   const [currency, setCurrency] = useState('USD');
 
@@ -24,22 +24,22 @@ function AccountOperations() {
   function handleDeposit(): void {
     if (!depositAmount) return;
     dispatch(deposit(depositAmount, currency));
-    setDepositAmount(0);
+    setDepositAmount(null);
 
-    setCurrency('');
+    setCurrency('USD');
   }
 
   function handleWithdrawal(): void {
     if (!withdrawalAmount) return;
     dispatch(withdraw(withdrawalAmount));
-    setWithdrawalAmount(0);
+    setWithdrawalAmount(null);
   }
 
   function handleRequestLoan(): void {
     if (!currentLoan || !currLoanPurpose) return;
     dispatch(requestLoan({ loan: currentLoan, purpose: currLoanPurpose }));
 
-    setCurrentLoan(0);
+    setCurrentLoan(null);
     setCurrLoanPurpose('');
   }
 
@@ -55,7 +55,7 @@ function AccountOperations() {
           <label>Deposit</label>
           <input
             type="number"
-            value={depositAmount}
+            value={depositAmount ?? ''}
             onChange={(e) => setDepositAmount(+e.target.value)}
           />
           <select
@@ -68,7 +68,7 @@ function AccountOperations() {
           </select>
 
           <button disabled={isLoading} onClick={handleDeposit}>
-            {isLoading ? 'Converting..' : `Deposit ${depositAmount}`}
+            {isLoading ? 'Converting..' : `Deposit ${depositAmount || ''}`}
           </button>
         </div>
 
@@ -76,7 +76,7 @@ function AccountOperations() {
           <label>Withdraw</label>
           <input
             type="number"
-            value={withdrawalAmount}
+            value={withdrawalAmount ?? ''}
             onChange={(e) => setWithdrawalAmount(+e.target.value)}
           />
           <button onClick={handleWithdrawal}>
@@ -88,7 +88,7 @@ function AccountOperations() {
           <label>Request loan</label>
           <input
             type="number"
-            value={currentLoan}
+            value={currentLoan ?? ''}
             onChange={(e) => setCurrentLoan(+e.target.value)}
             placeholder="Loan amount"
           />
