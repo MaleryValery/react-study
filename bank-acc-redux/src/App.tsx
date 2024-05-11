@@ -1,16 +1,24 @@
-import CreateCustomer from './CreateCustomer';
-import Customer from './Customer';
-import AccountOperations from './AccountOperations';
-import BalanceDisplay from './BalanceDisplay';
+import CreateCustomer from './features/customers/CreateCustomer';
+import Customer from './features/customers/Customer';
+import AccountOperations from './features/accounts/AccountOperations';
+import BalanceDisplay from './features/accounts/BalanceDisplay';
+import { useAppSelector } from './store/hooks';
 
 function App() {
+  const { fullName } = useAppSelector((store) => store.customer);
   return (
     <div>
       <h1>🏦 The React-Redux Bank ⚛️</h1>
-      <CreateCustomer />
-      <Customer />
-      <AccountOperations />
-      <BalanceDisplay />
+      {fullName.length === 0 ? (
+        <CreateCustomer />
+      ) : (
+        <>
+          {' '}
+          <Customer />
+          <AccountOperations />
+          <BalanceDisplay />
+        </>
+      )}
     </div>
   );
 }
