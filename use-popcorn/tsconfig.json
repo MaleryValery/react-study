@@ -26,7 +26,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", ".eslintrc.cjs", "src", "tsconfig.eslint.json"],
+  "include": [
+    "vite.config.ts",
+    ".eslintrc.cjs",
+    "use-popcorn/src",
+    "tsconfig.eslint.json"
+  ],
   "typeRoots": ["./node_modules/@types", "./types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
