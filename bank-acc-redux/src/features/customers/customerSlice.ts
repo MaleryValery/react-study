@@ -1,42 +1,38 @@
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 const initStateCustomer = {
   fullName: '',
   nationalID: '',
   createdAt: '',
 };
 
-type CustomerActions =
-  | { type: 'customer/createCustomer'; payload: typeof initStateCustomer }
-  | { type: 'customer/updateCustomer'; payload: string };
+type State = {
+  [key: string]: string;
+};
+const customerSlice = createSlice({
+  name: 'customer',
+  initialState: initStateCustomer,
+  reducers: {
+    createCustomer: {
+      prepare(fullName: string, nationalID: string) {
+        return {
+          payload: {
+            fullName,
+            nationalID,
+            createdAt: new Date().toISOString(),
+          },
+        };
+      },
+      reducer(state: State, action: PayloadAction<State>) {
+        (state.fullName = action.payload.fullName),
+          (state.nationalID = action.payload.nationalID),
+          (state.createdAt = action.payload.createdAt);
+      },
+    },
+    updateCustomer(state: State, action: PayloadAction<string>) {
+      state.fullName = action.payload;
+    },
+  },
+});
 
-export default function customerReducer(
-  state = initStateCustomer,
-  action: CustomerActions
-) {
-  switch (action.type) {
-    case 'customer/createCustomer':
-      return {
-        ...state,
-        fullName: action.payload.fullName,
-        nationalID: action.payload.nationalID,
-        createdAt: action.payload.createdAt,
-      };
-    case 'customer/updateCustomer':
-      return { ...state, fullName: action.payload };
-
-    default:
-      return state;
-  }
-}
-
-export function createCustomer(fullName: string, id: string): CustomerActions {
-  return {
-    type: 'customer/createCustomer',
-    payload: { fullName, nationalID: id, createdAt: new Date().toISOString() },
-  };
-}
-export function updateCustomer(fullName: string): CustomerActions {
-  return {
-    type: 'customer/updateCustomer',
-    payload: fullName,
-  };
-}
+export default customerSlice.reducer;
+export const { createCustomer, updateCustomer } = customerSlice.actions;
